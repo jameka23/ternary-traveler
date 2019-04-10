@@ -1,0 +1,9 @@
+.row {
+    box-sizing: content-box;
+}
+
+#header-div {
+    display: flex;
+    justify-content: center;
+    font-size: -webkit-xxx-large;
+}
