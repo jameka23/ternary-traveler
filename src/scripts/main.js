@@ -2,7 +2,9 @@
 // a domino effect that will create the places html
 import api from "././travelScripts/travelApiManager"
 import buildHTML from "./travelScripts/travelDomHtmlBuilder"
+import listInterests from "./travelScripts/listPointsOfInterests"
 
-// console.log("Hey, girl")
-// make the call to get all places
+
+// make the call to get all places and interests
 api.getPlaces().then(places => buildHTML.placesBuilder(places));
+api.getInterests().then(points => listInterests.listAllThePoints(points));

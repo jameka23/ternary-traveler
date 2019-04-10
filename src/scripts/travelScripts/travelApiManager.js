@@ -7,7 +7,7 @@ const api = {
         .then(response => response.json())
     },
     getInterests: () => {
-        return fetch(`${url}/interests`)
+        return fetch(`${url}/interests/?_expand=place`)
         .then(response => response.json())
     },
     postNewInterest: (interestObj) => {
