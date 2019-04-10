@@ -59,11 +59,12 @@ const DomBuilder = {
             theContainer.removeChild(theContainer.firstChild)
         }
     },
-    formBuilder: (interestId) => {
+    formBuilder: (interestId, placeName) => {
         // this function will build the form for points of interests, which will clear out the places container and 
         // show the form 
 
         const placesContainer = document.querySelector("#place-container");
+        const formHeader = DomBuilder.htmlFactory("div", undefined, "header-div", `Point of Interest for: ${placeName}`);
         const formArticle = DomBuilder.htmlFactory("article", "form-places", `place--${interestId}`, undefined);
         //first clear out the container 
         DomBuilder.clearElements(placesContainer);
@@ -98,6 +99,7 @@ const DomBuilder = {
         formArticle.appendChild(formButton);
 
         //append article to container 
+        placesContainer.appendChild(formHeader)
         placesContainer.appendChild(formArticle);
     },
     placesBuilder: (placesArray) => {
@@ -117,7 +119,7 @@ const DomBuilder = {
             const placeCard = DomBuilder.htmlFactory("div", "card w-75", `place-card--${placeObj.id}`, undefined);
             const placeCardBody = DomBuilder.htmlFactory("div", "card-body", `place-body--${placeObj.id}`, undefined);
             const placeH3 = DomBuilder.htmlFactory("h3", "card-title", `place--${placeObj.id}`, `${placeObj.name}`);
-            const newInterestButton = DomBuilder.htmlFactory("button", "btn btn-info", `place-button--${placeObj.id}`, "New Interest");
+            const newInterestButton = DomBuilder.htmlFactory("button", "btn btn-info", `place-button--${placeObj.name}`, "New Interest");
             newInterestButton.addEventListener("click", handlers.handleNewPointOfInterest);
 
             //append to dom frag
@@ -132,9 +134,32 @@ const DomBuilder = {
         placesContainer.appendChild(headerDiv)
         placesContainer.appendChild(mainRow);
         placesContainer.appendChild(hr);
+
+        
     },
-    pointOfInterestBuilder: () => {
+    pointOfInterestBuilder: (interestObj) => {
         // this function will build the points of interest cards that will be appened in the points of interest container
+        const pointContainer = document.querySelector("#interests-container")
+        /*
+        <div class="card-deck">
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+        */
+
+        const mainDeck = DomBuilder.htmlFactory("div", "card-deck");
+        const card = DomBuilder.htmlFactory("div", "card");
+        const cardBody = DomBuilder.htmlFactory("div", "card-body", "interest-body");
+        const h3Name = DomBuilder.htmlFactory("h3", "card-title", "interest-id", `${interestObj.name}`)
+        const h5Place = DomBuilder.htmlFactory("h5", "card-text", undefined, `${interestObj.place.name}`);
+        const pDescription = DomBuilder.htmlFactory("p", "card-text", "interest-desc", `${interestObj.description}`);
+        const pCost = DomBuilder.htmlFactory("p", "card-text", "interest-cost", `${interestObj.cost}`);
 
 
     }
