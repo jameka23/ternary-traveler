@@ -65,38 +65,43 @@ const DomBuilder = {
         // show the form 
         const placesContainer = document.querySelector("#place-container");
         const formHeader = DomBuilder.htmlFactory("div", undefined, "header-div", `Point of Interest for: ${placeName}`);
-        const formDiv = DomBuilder.htmlFactory("div");
+        const formArticle = DomBuilder.htmlFactory("form", "form-places", `place--${interestId}`, undefined);
         //first clear out the container 
-
         DomBuilder.clearElements(placesContainer);
-        const form = DomBuilder.htmlFactory("form");
-        const nameLabel = DomBuilder.htmlFactory("label",undefined, undefined, "Name of Point of Interest", "name")
-        const nameInput = DomBuilder.htmlFactory("input", "name", "name", undefined, undefined);
-        nameInput.type = "text";
 
-        const descriptionLabel = DomBuilder.htmlFactory("label",undefined, undefined, "Description", "description")
-        const descriptionInput =DomBuilder.htmlFactory("textarea", undefined, "description");
-        
+        const formNameDiv = DomBuilder.htmlFactory("div","form-group");
+        const formNameLabel = DomBuilder.htmlFactory("label",undefined, undefined, "Name of Point of Interest", "name")
+        const formName = DomBuilder.htmlFactory("input", "form-control", "name", undefined, undefined);
+        formName.placeholder = "Enter name of point of interest"
+        formNameDiv.appendChild(formNameLabel);
+        formNameDiv.appendChild(formName);
 
-        const costLabel = DomBuilder.htmlFactory("label",undefined, undefined, "Cost", "cost")
-        const costInput = DomBuilder.htmlFactory("input", undefined, "cost");
-        costInput.type = "text"
+        const formDescriptionDiv = DomBuilder.htmlFactory("div","form-group");
+        const formDescriptionLabel = DomBuilder.htmlFactory("label",undefined, undefined, "Description", "description")
+        const formDescription = DomBuilder.htmlFactory("textarea", "form-control", "description", undefined, undefined)
+        formDescription.placeholder = "Enter a description";
+        formDescriptionDiv.appendChild(formDescriptionLabel);
+        formDescriptionDiv.appendChild(formDescription);
         
-        const formButton = DomBuilder.htmlFactory("button", undefined, `save-place--${interestId}`, "Save");
+        const formCostDiv = DomBuilder.htmlFactory("div","form-group");
+        const formCostLabel = DomBuilder.htmlFactory("label",undefined, undefined, "Cost", "cost")
+        const formCost = DomBuilder.htmlFactory("input", "form-control", "cost", undefined, undefined);
+        formCost.placeholder = "Enter a cost";
+        formCostDiv.appendChild(formCostLabel);
+        formCostDiv.appendChild(formCost);
+
+        const formButton = DomBuilder.htmlFactory("button", "btn btn-primary", `save-place--${interestId}`, "Save");
         formButton.type = "button"
         formButton.addEventListener("click",handlers.handleSaveInterest);
 
-        form.appendChild(formHeader)
-        form.appendChild(nameLabel)
-        form.appendChild(nameInput)
-        form.appendChild(descriptionLabel)
-        form.appendChild(descriptionInput)
-        form.appendChild(costLabel)
-        form.appendChild(costInput)
-        form.appendChild(formButton)
-        formDiv.appendChild(form)
-        placesContainer.appendChild(formDiv)
-        console.log(formDiv)
+        formArticle.appendChild(formNameDiv);
+        formArticle.appendChild(formDescriptionDiv);
+        formArticle.appendChild(formCostDiv);
+        formArticle.appendChild(formButton);
+
+        //append article to container 
+        placesContainer.appendChild(formHeader)
+        placesContainer.appendChild(formArticle);
     },
     placesBuilder: (placesArray) => {
         // this is the function that will build the places interest cards that will be appended to the places container
@@ -168,42 +173,3 @@ const DomBuilder = {
 }
 
 export default DomBuilder
-
-/*
-       const placesContainer = document.querySelector("#place-container");
-        const formHeader = DomBuilder.htmlFactory("div", undefined, "header-div", `Point of Interest for: ${placeName}`);
-        const formArticle = DomBuilder.htmlFactory("form", "form-places", `place--${interestId}`, undefined);
-        //first clear out the container 
-        DomBuilder.clearElements(placesContainer);
-
-        const formNameDiv = DomBuilder.htmlFactory("div","form-group");
-        const formNameLabel = DomBuilder.htmlFactory("label",undefined, undefined, "Name of Point of Interest", "name")
-        const formName = DomBuilder.htmlFactory("input", "form-control", "name", undefined, undefined);
-        formName.placeholder = "Enter name of point of interest"
-        formNameDiv.appendChild(formNameLabel);
-        formNameDiv.appendChild(formName);
-
-        const formDescriptionDiv = DomBuilder.htmlFactory("div","form-group");
-        const formDescriptionLabel = DomBuilder.htmlFactory("label",undefined, undefined, "Description", "description")
-        const formDescription = DomBuilder.htmlFactory("textarea", "form-control", "description", undefined, undefined)
-        formDescription.placeholder = "Enter a description";
-        formDescriptionDiv.appendChild(formDescriptionLabel);
-        formDescriptionDiv.appendChild(formDescription);
-        
-        const formCostDiv = DomBuilder.htmlFactory("div","form-group");
-        const formCostLabel = DomBuilder.htmlFactory("label",undefined, undefined, "Cost", "cost")
-        const formCost = DomBuilder.htmlFactory("input", "form-control", "cost", undefined, undefined);
-        formCost.placeholder = "Enter a cost";
-        formCostDiv.appendChild(formCostLabel);
-        formCostDiv.appendChild(formCost);
-
-
-        formArticle.appendChild(formNameDiv);
-        formArticle.appendChild(formDescriptionDiv);
-        formArticle.appendChild(formCostDiv);
-        formArticle.appendChild(formButton);
-
-        //append article to container 
-        placesContainer.appendChild(formHeader)
-        placesContainer.appendChild(formArticle);
- */

@@ -49,17 +49,13 @@ const handler = {
             //refresh the container with the new interests 
             const mainContainer = document.querySelector("#interests-container");
             domBuilder.clearElements(mainContainer);
+            const mainPlaceContainer = document.querySelector("#place-container");
+            domBuilder.clearElements(mainPlaceContainer)
 
             // then repopulate that section
             api.getInterests()
             .then(parsedArray => listPoints.listAllThePoints(parsedArray))
-        }).then(() => {
-            api.getPlaces().then(places => domBuilder.placesBuilder(places))
-            .then(() => {
-                // clear out the contianer
-                const mainContainer = document.querySelector("#place-container");
-                domBuilder.clearElements(mainContainer);
-            })
+            .then(api.getPlaces().then(places => domBuilder.placesBuilder(places)))
         })
     },
     handleEdit: () => {
