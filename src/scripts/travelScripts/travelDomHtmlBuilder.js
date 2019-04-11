@@ -77,7 +77,7 @@ const DomBuilder = {
 
         const placesContainer = document.querySelector("#place-container");
         const placeDomFrag = document.createDocumentFragment();
-        const mainRow = DomBuilder.htmlFactory("div", "card-group", "main-row", undefined);
+        const mainRow = DomBuilder.htmlFactory("div", "card-group group--places", "main-row", undefined);
         const hr = DomBuilder.htmlFactory("hr");
         const headerDiv = DomBuilder.htmlFactory("div","card-text", "header-div", "Places");
 
@@ -85,7 +85,7 @@ const DomBuilder = {
         placesArray.forEach(placeObj => {
             // console.log(placeObj)
             // const placeCol = DomBuilder.htmlFactory("div","col-sm-6", undefined, undefined);
-            const placeCard = DomBuilder.htmlFactory("div", "card w-75", `place-card--${placeObj.id}`, undefined);
+            const placeCard = DomBuilder.htmlFactory("div", "card w-75 cards--place", `place-card--${placeObj.id}`, undefined);
             const placeCardBody = DomBuilder.htmlFactory("div", "card-body", `place-body--${placeObj.id}`, undefined);
             const placeH3 = DomBuilder.htmlFactory("h3", "card-title", `place--${placeObj.id}`, `${placeObj.name}`);
             const newInterestButton = DomBuilder.htmlFactory("button", "btn btn-info", `place-button--${placeObj.name}`, "New Interest");
@@ -112,7 +112,7 @@ const DomBuilder = {
         const pointContainer = document.querySelector("#interests-container");
         const mainDeck = DomBuilder.htmlFactory("div", "card-group");
         
-        const card = DomBuilder.htmlFactory("div", "card", `card--${interestObj.id}`);
+        const card = DomBuilder.htmlFactory("div", "card interests--cards", `card--${interestObj.id}`);
         const cardBody = DomBuilder.htmlFactory("div", "card-body", `interest-body--${interestObj.id}`);
         const h3Name = DomBuilder.htmlFactory("h3", "card-title", "interest-id", `${interestObj.name}`)
         const h5Place = DomBuilder.htmlFactory("h5", "card-text", `place-id--${interestObj.place.id}`, `${interestObj.place.name}`);
