@@ -2,8 +2,12 @@
     box-sizing: content-box;
 }
 
-#header-div {
+#header-div, #header-divPoints {
     display: flex;
     justify-content: center;
     font-size: -webkit-xxx-large;
+}
+
+.card {
+    border: 2px, blue, solid;
 }

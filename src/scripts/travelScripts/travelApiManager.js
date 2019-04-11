@@ -23,7 +23,7 @@ const api = {
             body: JSON.stringify(interestObj)
         })
     },
-    putInterest: (interestId, updatedInterestObj) => {
+    patchInterest: (interestId, updatedInterestObj) => {
         return fetch(`${url}/interests/${interestId}`, {
             method: "PATCH",
             headers: {

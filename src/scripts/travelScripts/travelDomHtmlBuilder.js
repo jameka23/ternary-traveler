@@ -1,38 +1,5 @@
 // this component will build the main html section 
 import handlers from "./travelEventHandler"
-import handler from "./travelEventHandler";
-
-/*
-<div class="card">
-  <h5 class="card-header">Featured</h5>
-  <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-  </div>
-</div>
-*/
 
 const DomBuilder = {
     htmlFactory: (element, elementClass, elementId, elementTextContent, elementFor) => {
@@ -141,20 +108,21 @@ const DomBuilder = {
     },
     pointOfInterestBuilder: (interestObj) => {
         // this function will build the points of interest cards that will be appened in the points of interest container
+        // const headerDiv = DomBuilder.htmlFactory("div","card-text", "header-divPoints", "Points of Interests");
         const pointContainer = document.querySelector("#interests-container");
-        const mainDeck = DomBuilder.htmlFactory("div", "card-deck");
+        const mainDeck = DomBuilder.htmlFactory("div", "card-group");
         
         const card = DomBuilder.htmlFactory("div", "card", `card--${interestObj.id}`);
-        const cardBody = DomBuilder.htmlFactory("div", "card-body", "interest-body", );
+        const cardBody = DomBuilder.htmlFactory("div", "card-body", `interest-body--${interestObj.id}`);
         const h3Name = DomBuilder.htmlFactory("h3", "card-title", "interest-id", `${interestObj.name}`)
         const h5Place = DomBuilder.htmlFactory("h5", "card-text", `place-id--${interestObj.place.id}`, `${interestObj.place.name}`);
-        const pDescription = DomBuilder.htmlFactory("p", "card-text", "interest-desc", `${interestObj.description}`);
-        const pCost = DomBuilder.htmlFactory("p", "card-text", "interest-cost", `$${interestObj.cost}`);
-        pCost.type = "number"
+        const pDescription = DomBuilder.htmlFactory("p", "card-text", "interest-desc", `Description: ${interestObj.description}`);
+        const pCost = DomBuilder.htmlFactory("p", "card-text", "interest-cost", `Cost: $${interestObj.cost}`);
+        const pReview = DomBuilder.htmlFactory("p", "card-text", "interest-review", `Review: ${interestObj.review}`)
         const buttonDiv = DomBuilder.htmlFactory("div", "btn-group");
         buttonDiv.role = "group";
         
-        const editButton = DomBuilder.htmlFactory("button", "btn btn-warning", `edit-interest--${interestObj.id}`, "Edit");
+        const editButton = DomBuilder.htmlFactory("button", "btn btn-primary", `edit-interest--${interestObj.id}`, "Edit");
         editButton.addEventListener("click", handlers.handleEdit);
         const deleteButton = DomBuilder.htmlFactory("button","btn btn-danger", `delete-interest--${interestObj.id}`, "Delete");
         deleteButton.addEventListener("click", handlers.handleDelete);
@@ -165,31 +133,35 @@ const DomBuilder = {
         cardBody.appendChild(h5Place);
         cardBody.appendChild(pDescription);
         cardBody.appendChild(pCost);
+        cardBody.appendChild(pReview);
         cardBody.appendChild(buttonDiv);
         card.appendChild(cardBody);
         mainDeck.appendChild(card);
+        // pointContainer.appendChild(headerDiv)
         pointContainer.appendChild(mainDeck);
     },
     editBuilder: (editObj) => {
         // this method will create the edit feature that will pop up
-        const cardContainer = document.querySelector("#interest-body");
+        const cardContainer = document.querySelector(`#card--${editObj.id}`);
+        const cardBody = DomBuilder.htmlFactory("div", "card-body", `interest-body--${editObj.id}`);
         const h3Name = DomBuilder.htmlFactory("h3", "card-title", "interest-id", `${editObj.name}`)
         const h5Place = DomBuilder.htmlFactory("h5", "card-text", `place-id--${editObj.place.id}`, `${editObj.place.name}`);
         const pDescription = DomBuilder.htmlFactory("p", "card-text", "interest-desc", `${editObj.description}`);
         const pCost = DomBuilder.htmlFactory("input","form-control", `edit-cost--${editObj.id}`)
         pCost.type = "number"
         pCost.value = editObj.cost;
-        const pReview = DomBuilder.htmlFactory("textarea", "form-control", `edit-review--${editObj.id}`)
-        pReview.value = editObj.review;
+        const textReview = DomBuilder.htmlFactory("textarea", "form-control", `edit-review--${editObj.id}`)
+        textReview.value = editObj.review;
         const saveEditButton = DomBuilder.htmlFactory("button", "btn btn-primary", `save-button--${editObj.id}`, "Save");
         saveEditButton.addEventListener("click", handlers.handleSaveEdit);
 
-        cardContainer.appendChild(h3Name)
-        cardContainer.appendChild(h5Place)
-        cardContainer.appendChild(pDescription)
-        cardContainer.appendChild(pCost)
-        cardContainer.appendChild(pReview)
-        cardContainer.appendChild(saveEditButton)
+        cardBody.appendChild(h3Name)
+        cardBody.appendChild(h5Place)
+        cardBody.appendChild(pDescription)
+        cardBody.appendChild(pCost)
+        cardBody.appendChild(textReview)
+        cardBody.appendChild(saveEditButton)
+        cardContainer.appendChild(cardBody)
     }
 }
 
