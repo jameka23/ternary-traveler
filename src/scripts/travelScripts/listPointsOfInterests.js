@@ -4,7 +4,7 @@ import domBuilder from "./travelDomHtmlBuilder"
 const listPoints = {
     listAllThePoints: (pointArray) => {
         pointArray.forEach(pointObject => {
-            console.log(pointObject)
+            //  push each obj to the interest builder to build the html and append to dom
             domBuilder.pointOfInterestBuilder(pointObject)
         });
     }
