@@ -10,6 +10,10 @@ const api = {
         return fetch(`${url}/interests/?_expand=place`)
         .then(response => response.json())
     },
+    getSingleInterest: (interestId) => {
+        return fetch(`${url}/interests/${interestId}/?_expand=place`)
+        .then(response => response.json())
+    },
     postNewInterest: (interestObj) => {
         return fetch(`${url}/interests`, {
             method: "POST",
