@@ -9,5 +9,19 @@
 }
 
 .card {
-    border: 2px, blue, solid;
+    border: 2px black solid;
+    background-color: lightyellow;
+}
+
+.interests--cards {
+    margin: 5%;
+}
+
+.cards--place {
+    background-color: teal;
+    justify-content: center;
+}
+
+.group-places {
+    display: flex;
 }
