@@ -3,6 +3,7 @@ import api from "./travelApiManager"
 import domBuilder from "./travelDomHtmlBuilder"
 import listPoints from "./listPointsOfInterests"
 
+// this factory function will create a new point of interest
 const createNewInterest = (placeId, name, desc, cost, review) => {
     if(review){
         return {
@@ -22,6 +23,14 @@ const createNewInterest = (placeId, name, desc, cost, review) => {
         }
     }
 
+}
+
+// this factory function will return the patch obj of a point of interest
+const editedInterest = (cost, review) => {
+    return {
+        "cost": cost,
+        "review": review
+    }
 }
 
 const handler = {
@@ -61,7 +70,7 @@ const handler = {
         const interestId = Number(event.target.id.split("--")[1]);
         api.getSingleInterest(interestId)
         .then(interestObj => {
-            const cardContainer = document.querySelector("#interest-body");
+            const cardContainer = document.querySelector(`#card--${interestId}`);
             domBuilder.clearElements(cardContainer)
             domBuilder.editBuilder(interestObj)
         })
@@ -82,10 +91,29 @@ const handler = {
                 api.getInterests()
                 .then(parsedArray => listPoints.listAllThePoints(parsedArray))
             })
+            // .then(() => alert("Deleted point of interest!"))
+            alert("Deleted point of interest!")
         }
     },
     handleSaveEdit: () => {
         // this function will handle the save of an edited point of interest
+        const interestId = event.target.id.split("--")[1];
+        const editedCost = document.querySelector(`#edit-cost--${interestId}`)
+        const editedReview = document.querySelector(`#edit-review--${interestId}`)
+        let updatedInterest = editedInterest(Number(editedCost.value), editedReview.value);
+        
+        //make the call to api to do a patch and update the db
+        api.patchInterest(interestId, updatedInterest)
+        .then(() => {
+            // clear out the container and repopulate it 
+            const mainCardContainer = document.querySelector("#interests-container");
+            domBuilder.clearElements(mainCardContainer)
+        })
+        .then(() => {
+            // make the call to append that interest back to it's container
+            api.getInterests().then(arrayPoints => listPoints.listAllThePoints(arrayPoints))
+        })
+        
     }
 }
 
